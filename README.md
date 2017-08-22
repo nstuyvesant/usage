@@ -15,4 +15,4 @@ Both the bash shell and PowerShell scripts use a parameterized SQL query found i
 ## Prerequisites
 - For hosted usage collection, you must have access to an Ubuntu Server 14.10+ that can reach the MCM's PostgreSQL databases.
 - For on-premises, you must be able to Remote Desktop to the MCM as an Administrator.
-- Both the bash and Powershell scripts must be updated with values for: dbpass, accessKey, loginName, appOrgId, and jobId.
+- Both the bash and Powershell scripts must be updated with values for: dbpass, accessKey, loginName, appOrgId, and jobId. For on-premises systems, the time zone must also be provided.
