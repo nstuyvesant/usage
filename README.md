@@ -12,7 +12,7 @@ Directions for its setup can be found on On-Prem Usage Setup.docx.
 
 Both the bash shell and PowerShell scripts use a parameterized SQL query found in usage-to-gainsight.sql.
 
-# Prerequisites
+## Prerequisites
 - For hosted usage collection, you must have access to an Ubuntu Server 14.10+ that can reach the MCM's PostgreSQL databases.
 - For on-premises, you must be able to Remote Desktop to the MCM as an Administrator.
 - Both the bash and Powershell scripts must be updated with values for: pgPassword, accessKey, loginName, appOrgId, and jobId.
