@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v201405191524 Build &lt;4.4.0.v20140606-1451></property>
+    <html-property name="description">Template for SQL-based reports</html-property>
+    <property name="units">in</property>
+    <text-property name="displayName">PerfectoMobile SQL Report</text-property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">../libraries/db.rptlibrary</property>
+            <property name="namespace">db</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="userSecurityRoles" id="164" extends="db.userSecurityRoles"/>
+        <scalar-parameter name="startDate" id="165">
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endDate" id="166">
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="userEmail" id="191">
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">%</value>
+            </simple-property-list>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="PerfectoMobileDatabase" id="7"
+ extends="db.PerfectoMobileDatabase"/>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="HandsetUsage" id="9">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">event_time</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Event time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">username</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Username</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">event_data</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Event data</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">handset_id</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Handset id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">manufacturer</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Manufacturer</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">model</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Model</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">distributor</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Distributor</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">first_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">First name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">last_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Last name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">company_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Company name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">cradle_id</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Cradle id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">duration_in_millis</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">Duration in millis</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">device_roles</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">device_roles</text-property>
+                    <text-property name="heading">device_roles</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">user_roles</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">user_roles</text-property>
+                    <text-property name="heading">user_roles</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">user_groups</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">user_groups</text-property>
+                    <text-property name="heading">user_groups</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">email</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">email</text-property>
+                    <text-property name="heading">email</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">os</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">os</text-property>
+                    <text-property name="heading">os</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">os_version</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">os_version</text-property>
+                    <text-property name="heading">os_version</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">location</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">location</text-property>
+                    <text-property name="heading">location</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">param_1</property>
+                    <property name="paramName">startDate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">1</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">param_2</property>
+                    <property name="paramName">endDate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">2</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">param_3</property>
+                    <property name="paramName">userEmail</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                    <property name="position">3</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">event_time</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">username</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">event_data</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">handset_id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">manufacturer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">model</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">distributor</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">first_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">last_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">company_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">cradle_id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">duration_in_millis</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">device_roles</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">user_roles</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">user_groups</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">email</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">os</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">os_version</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">location</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">PerfectoMobileDatabase</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">event_time</property>
+                    <property name="nativeName">event_time</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">username</property>
+                    <property name="nativeName">username</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">event_data</property>
+                    <property name="nativeName">event_data</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">handset_id</property>
+                    <property name="nativeName">handset_id</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">manufacturer</property>
+                    <property name="nativeName">manufacturer</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">model</property>
+                    <property name="nativeName">model</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">distributor</property>
+                    <property name="nativeName">distributor</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">first_name</property>
+                    <property name="nativeName">first_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">last_name</property>
+                    <property name="nativeName">last_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">company_name</property>
+                    <property name="nativeName">company_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">cradle_id</property>
+                    <property name="nativeName">cradle_id</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">duration_in_millis</property>
+                    <property name="nativeName">duration_in_millis</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">device_roles</property>
+                    <property name="nativeName">device_roles</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">user_roles</property>
+                    <property name="nativeName">user_roles</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">user_groups</property>
+                    <property name="nativeName">user_groups</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">email</property>
+                    <property name="nativeName">email</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">os</property>
+                    <property name="nativeName">os</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">os_version</property>
+                    <property name="nativeName">os_version</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">location</property>
+                    <property name="nativeName">location</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT event_time AT TIME ZONE 'UTC' AS event_time,username,event_data,handset_id,manufacturer,model,distributor,first_name,last_name,
+	company_name,cradle_id,duration_in_millis, ';' || string_agg(dev_roles.dev_role, ';'  ORDER BY dev_roles.dev_role COLLATE "C") || ';' as device_roles, user_roles, user_groups,  email, os, os_version, location
+FROM 
+	(SELECT original_w_groups.hid AS hid, 
+			event_time,username,event_data,handset_id,manufacturer,model,distributor,first_name,last_name,
+			company_name,cradle_id,duration_in_millis, 
+			email, user_groups, ';' || string_agg(roles.role, ';' ORDER BY roles.role COLLATE "C") || ';' AS user_roles, os, os_version, location
+		FROM
+			(SELECT original.uid AS uid, hid,
+					event_time,username,event_data,handset_id,manufacturer,model,distributor,first_name,last_name,
+					company_name,cradle_id,duration_in_millis, email, groups.label AS user_groups, os, os_version, location
+				FROM 
+					(SELECT np_user.id as uid, np_handset.id AS hid,
+							event_time,username,event_data,handset_id,manufacturer,model,distributor,first_name,last_name,
+							company_name,cradle_id,duration_in_millis, 
+							email, os, os_version, np_handset.location as location
+						FROM np_audit_handset_event
+						JOIN np_handset
+							ON np_audit_handset_event.handset_id = np_handset.name 
+						JOIN np_user
+							ON np_audit_handset_event.username = np_user.name  
+						WHERE event_type='HS_CLOSE' 
+							-- the next AND line should be commented out before checking in and the less than needs to be changed to ampersand lt semicolon 
+							--AND event_time AT TIME ZONE 'UTC'  >= '2013-01-01' AND event_time AT TIME ZONE 'UTC' < '2013-01-16'							
+							-- the next 2 lines should be un-commented before checking in. 
+							AND event_time AT TIME ZONE 'UTC' >= ? AND event_time AT TIME ZONE 'UTC' < ?
+							AND email LIKE ? 
+							AND LOWER(email) NOT LIKE '%@perfectomobile.com' 
+							AND np_audit_handset_event.status != 'Error' 
+						ORDER BY event_time DESC, handset_id
+						LIMIT 10000		
+					) AS original
+					-- this is the original query plus the user emails 
+					-- now join np_user_group to this
+					LEFT OUTER JOIN
+						(SELECT user_id,group_id FROM np_user_group) AS usergroups
+					ON original.uid = usergroups.user_id
+					-- now join np_group to the np_user_group
+					LEFT OUTER JOIN
+						(SELECT id,label FROM np_group) AS groups
+					ON groups.id = usergroups.group_id	 	   
+			) AS original_w_groups
+			-- now we have the original query + email + user groups
+			-- now join np_user_role to this
+			LEFT OUTER JOIN
+				(SELECT user_id,role_id FROM np_user_role) AS userroles 
+			ON original_w_groups.uid = userroles.user_id
+			-- now join np_role the np_user_role
+			LEFT OUTER JOIN
+				(SELECT id,name AS role FROM np_role) AS roles
+			ON roles.id = userroles.role_id
+		GROUP BY hid, 
+			event_time,username,event_data,handset_id,manufacturer,model,distributor,first_name,last_name,
+			company_name,cradle_id,duration_in_millis, 
+			email, user_groups, os, os_version, location
+	) AS orig_w_roles
+	-- now we have the original query + email + user groups + user roles
+	-- now join np_handset_role to this
+	LEFT OUTER JOIN
+		(SELECT handset_id AS hid,role_id FROM np_handset_role) AS deviceroles 
+	ON orig_w_roles.hid = deviceroles.hid
+	-- now join np_role to the np_handset_role
+	LEFT OUTER JOIN
+		(SELECT id,name AS dev_role FROM np_role) AS dev_roles
+	ON dev_roles.id = deviceroles.role_id
+GROUP BY event_time,username,event_data,handset_id,manufacturer,model,distributor,first_name,last_name,
+	company_name,cradle_id,duration_in_millis, 
+	user_groups, user_roles, email, os, os_version, location
+ORDER BY event_time DESC, handset_id
+]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>event_time</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>35</design:precision>
+            <design:scale>6</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>event_time</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>event_time</design:label>
+            <design:formattingHints>
+              <design:displaySize>35</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>username</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>username</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>username</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>event_data</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>512</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>event_data</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>event_data</design:label>
+            <design:formattingHints>
+              <design:displaySize>512</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>handset_id</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>handset_id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>handset_id</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>manufacturer</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>manufacturer</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>manufacturer</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>model</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>256</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>model</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>model</design:label>
+            <design:formattingHints>
+              <design:displaySize>256</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>distributor</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>distributor</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>distributor</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>first_name</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>first_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>first_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>32</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>last_name</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>last_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>last_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>32</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>company_name</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>company_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>company_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>cradle_id</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>cradle_id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>cradle_id</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>duration_in_millis</design:name>
+              <design:position>12</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>duration_in_millis</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>duration_in_millis</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">"Verdana"</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="topMargin">0.25in</property>
+            <property name="leftMargin">0.25in</property>
+            <property name="bottomMargin">0.25in</property>
+            <property name="rightMargin">0.25in</property>
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="86">
+            <property name="width">100%</property>
+            <property name="dataSet">HandsetUsage</property>
+            <list-property name="visibility">
+                <structure>
+                    <property name="format">all</property>
+                    <expression name="valueExpr">!userHasRole("ADMINISTRATOR")&amp;&amp;!userHasRole("USAGE_REPORT")&amp;&amp;!userHasRole("INTERNAL")</expression>
+                </structure>
+            </list-property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">event_time</property>
+                    <text-property name="displayName">Event time</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["event_time"]</expression>
+                    <property name="dataType">date-time</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">username</property>
+                    <text-property name="displayName">Username</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["username"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">event_data</property>
+                    <text-property name="displayName">Event data</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["event_data"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">handset_id</property>
+                    <text-property name="displayName">Handset id</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["handset_id"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">manufacturer</property>
+                    <text-property name="displayName">Manufacturer</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["manufacturer"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">model</property>
+                    <text-property name="displayName">Model</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["model"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">distributor</property>
+                    <text-property name="displayName">Distributor</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["distributor"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">first_name</property>
+                    <text-property name="displayName">First name</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["first_name"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">last_name</property>
+                    <text-property name="displayName">Last name</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["last_name"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">company_name</property>
+                    <text-property name="displayName">Company name</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["company_name"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">cradle_id</property>
+                    <text-property name="displayName">Cradle id</text-property>
+                    <expression name="expression">dataSetRow["cradle_id"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">duration_in_millis</property>
+                    <text-property name="displayName">Duration in millis</text-property>
+                    <expression name="expression">dataSetRow["duration_in_millis"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">Duration in minutes</property>
+                    <text-property name="displayName">Duration in minutes</text-property>
+                    <expression name="expression">dataSetRow["duration_in_millis"]/60000</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">Duration in hours</property>
+                    <text-property name="displayName">Duration in hours</text-property>
+                    <expression name="expression">dataSetRow["duration_in_millis"]/3600000</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">device_roles</property>
+                    <text-property name="displayName">device_roles</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["device_roles"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">user_roles</property>
+                    <text-property name="displayName">user_roles</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["user_roles"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">user_groups</property>
+                    <text-property name="displayName">user_groups</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["user_groups"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">email</property>
+                    <text-property name="displayName">email</text-property>
+                    <expression name="expression">removeCommas(dataSetRow["email"])</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">os</property>
+                    <text-property name="displayName">os</text-property>
+                    <expression name="expression" type="javascript">removeCommas(dataSetRow["os"])</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">os_version</property>
+                    <text-property name="displayName">os_version</text-property>
+                    <expression name="expression" type="javascript">removeCommas(dataSetRow["os_version"])</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">location</property>
+                    <text-property name="displayName">location</text-property>
+                    <expression name="expression" type="javascript">removeCommas(dataSetRow["location"])</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="repeatHeader">false</property>
+            <column id="150"/>
+            <column id="151"/>
+            <column id="152"/>
+            <column id="153"/>
+            <column id="154"/>
+            <column id="155"/>
+            <column id="156"/>
+            <column id="157"/>
+            <column id="158"/>
+            <column id="159"/>
+            <column id="160"/>
+            <column id="161">
+                <property name="repeat">1</property>
+            </column>
+            <column id="175">
+                <property name="repeat">1</property>
+            </column>
+            <column id="185">
+                <property name="repeat">1</property>
+            </column>
+            <column id="207">
+                <property name="repeat">1</property>
+            </column>
+            <column id="203">
+                <property name="repeat">1</property>
+            </column>
+            <column id="199">
+                <property name="repeat">1</property>
+            </column>
+            <column id="195">
+                <property name="repeat">1</property>
+            </column>
+            <column id="234">
+                <property name="repeat">1</property>
+            </column>
+            <column id="219">
+                <property name="repeat">1</property>
+            </column>
+            <column id="225">
+                <property name="repeat">1</property>
+            </column>
+            <header>
+                <row id="87">
+                    <cell id="88">
+                        <label id="89">
+                            <text-property name="text">Event time</text-property>
+                        </label>
+                    </cell>
+                    <cell id="90">
+                        <label id="91">
+                            <text-property name="text">Username</text-property>
+                        </label>
+                    </cell>
+                    <cell id="92">
+                        <label id="93">
+                            <text-property name="text">Event data</text-property>
+                        </label>
+                    </cell>
+                    <cell id="94">
+                        <label id="95">
+                            <text-property name="text">Device id</text-property>
+                        </label>
+                    </cell>
+                    <cell id="96">
+                        <label id="97">
+                            <text-property name="text">Manufacturer</text-property>
+                        </label>
+                    </cell>
+                    <cell id="98">
+                        <label id="99">
+                            <text-property name="text">Model</text-property>
+                        </label>
+                    </cell>
+                    <cell id="100">
+                        <label id="101">
+                            <text-property name="text">Distributor</text-property>
+                        </label>
+                    </cell>
+                    <cell id="102">
+                        <label id="103">
+                            <text-property name="text">First name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="104">
+                        <label id="105">
+                            <text-property name="text">Last name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="106">
+                        <label id="107">
+                            <text-property name="text">Company name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="108">
+                        <label id="109">
+                            <text-property name="text">Cradle id</text-property>
+                        </label>
+                    </cell>
+                    <cell id="110">
+                        <label id="111">
+                            <text-property name="text">Duration in millis</text-property>
+                        </label>
+                    </cell>
+                    <cell id="176">
+                        <label id="177">
+                            <text-property name="text">Duration in minutes</text-property>
+                        </label>
+                    </cell>
+                    <cell id="186">
+                        <label id="187">
+                            <text-property name="text">Duration in hours</text-property>
+                        </label>
+                    </cell>
+                    <cell id="204">
+                        <label id="209">
+                            <text-property name="text">Device roles</text-property>
+                        </label>
+                    </cell>
+                    <cell id="200">
+                        <label id="211">
+                            <text-property name="text">User roles</text-property>
+                        </label>
+                    </cell>
+                    <cell id="196">
+                        <label id="213">
+                            <text-property name="text">User groups</text-property>
+                        </label>
+                    </cell>
+                    <cell id="192">
+                        <label id="215">
+                            <text-property name="text">Email</text-property>
+                        </label>
+                    </cell>
+                    <cell id="232">
+                        <label id="228">
+                            <text-property name="text">Device location</text-property>
+                        </label>
+                    </cell>
+                    <cell id="217">
+                        <label id="226">
+                            <text-property name="text">OS</text-property>
+                        </label>
+                    </cell>
+                    <cell id="223">
+                        <label id="227">
+                            <text-property name="text">OS version</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="112">
+                    <cell id="113">
+                        <data id="114">
+                            <structure name="dateTimeFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">yyyy-MM-dd HH:mm:ss.SSS</property>
+                            </structure>
+                            <property name="resultSetColumn">event_time</property>
+                        </data>
+                    </cell>
+                    <cell id="115">
+                        <data id="116">
+                            <property name="resultSetColumn">username</property>
+                        </data>
+                    </cell>
+                    <cell id="117">
+                        <data id="118">
+                            <property name="resultSetColumn">event_data</property>
+                        </data>
+                    </cell>
+                    <cell id="119">
+                        <data id="120">
+                            <property name="resultSetColumn">handset_id</property>
+                        </data>
+                    </cell>
+                    <cell id="121">
+                        <data id="122">
+                            <property name="resultSetColumn">manufacturer</property>
+                        </data>
+                    </cell>
+                    <cell id="123">
+                        <data id="124">
+                            <property name="resultSetColumn">model</property>
+                        </data>
+                    </cell>
+                    <cell id="125">
+                        <data id="126">
+                            <property name="resultSetColumn">distributor</property>
+                        </data>
+                    </cell>
+                    <cell id="127">
+                        <data id="128">
+                            <property name="resultSetColumn">first_name</property>
+                        </data>
+                    </cell>
+                    <cell id="129">
+                        <data id="130">
+                            <property name="resultSetColumn">last_name</property>
+                        </data>
+                    </cell>
+                    <cell id="131">
+                        <data id="132">
+                            <property name="resultSetColumn">company_name</property>
+                        </data>
+                    </cell>
+                    <cell id="133">
+                        <data id="134">
+                            <property name="resultSetColumn">cradle_id</property>
+                        </data>
+                    </cell>
+                    <cell id="135">
+                        <data id="136">
+                            <property name="resultSetColumn">duration_in_millis</property>
+                        </data>
+                    </cell>
+                    <cell id="178">
+                        <data id="179">
+                            <property name="resultSetColumn">Duration in minutes</property>
+                        </data>
+                    </cell>
+                    <cell id="188">
+                        <data id="189">
+                            <property name="resultSetColumn">Duration in hours</property>
+                        </data>
+                    </cell>
+                    <cell id="205">
+                        <data id="210">
+                            <property name="resultSetColumn">device_roles</property>
+                        </data>
+                    </cell>
+                    <cell id="201">
+                        <data id="212">
+                            <property name="resultSetColumn">user_roles</property>
+                        </data>
+                    </cell>
+                    <cell id="197">
+                        <data id="214">
+                            <property name="resultSetColumn">user_groups</property>
+                        </data>
+                    </cell>
+                    <cell id="193">
+                        <data id="216">
+                            <property name="resultSetColumn">email</property>
+                        </data>
+                    </cell>
+                    <cell id="233">
+                        <data id="231">
+                            <property name="resultSetColumn">location</property>
+                        </data>
+                    </cell>
+                    <cell id="218">
+                        <data id="229">
+                            <property name="resultSetColumn">os</property>
+                        </data>
+                    </cell>
+                    <cell id="224">
+                        <data id="230">
+                            <property name="resultSetColumn">os_version</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+</report>
