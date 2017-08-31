@@ -77,7 +77,7 @@ UNION
  SELECT * FROM (SELECT
   :fqdn as fqdn,
   'Unused'::text as usage_type,
-  end_time as event_time,
+  end_time::timestamp(0) with time zone as event_time,
   to_char(end_time,'HH24') as hour_of_day,
   to_char(end_time,'FMDay') as day,
   EXTRACT(epoch FROM end_time - start_time)/3600 - (SELECT COALESCE(SUM(duration_in_millis::double precision)/3600000::double precision, 0) as hours_used FROM np_audit_handset_event WHERE event_type = 'HS_CLOSE' AND status <> 'Error' AND handset_id = np_audit_reservation_event.handset_id AND event_time >= np_audit_reservation_event.start_time AND event_time <= np_audit_reservation_event.end_time) as duration_hours,
