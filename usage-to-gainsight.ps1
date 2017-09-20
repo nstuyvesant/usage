@@ -197,8 +197,9 @@ if ($hasRows) {
       }
     }
     catch [Exception] {
-      $exception = $_.ErrorDetails | ConvertFrom-JsonPS2
-      echo "Failed: $($exception)"
+      echo $_.Exception.GetType().FullName, $_.Exception.Message
+      #$exception = $_.ErrorDetails | ConvertFrom-JsonPS2
+      #echo "Failed: $($exception)"
       $uploaded = $false
     }
     finally {
