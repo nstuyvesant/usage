@@ -32,16 +32,16 @@ main() {
 
   cd "$csvDir"
 
-  printf "Run started.\n\n"
+  printf "Run started.\n"
   clouds=`PGPASSWORD=$dbpass psql -q -h localhost -U postgres -d eventrecords -c "COPY(SELECT DISTINCT lower(url) AS fqdn, mcm_ip_address AS ip, tz, last_sync FROM cloudslist WHERE validity = 'Y' AND sfname <> 'Perfecto Mobile' AND env_stat = 'production' ORDER BY fqdn) TO STDOUT CSV NULL '' ENCODING 'UTF8'"`
   for currentCloud in $clouds; do
     fqdn=`echo $currentCloud | cut -d, -f1`
     ip=`echo $currentCloud | cut -d, -f2`
     tz=`echo $currentCloud | cut -d, -f3`
     start=`echo $currentCloud | cut -d, -f4`
-    printf "Cloud: $fqdn, IP: $ip, Time Zone: $tz\n"
+    printf "\nCloud: $fqdn, IP: $ip, Time Zone: $tz\n"
     usageFile="$fqdn.csv"
-    PGPASSWORD=$dbpass psql -h $ip -U postgres -d nexperience -t -f "/opt/scripts/usage-to-gainsight.sql" -v fqdn="'$fqdn'" -v start="'$start'" -v end="'$end'" -v tz="'$tz'" > $usageFile
+    PGPASSWORD=$dbpyass psql -h $ip -U postgres -d nexperience -t -f "/opt/scripts/usage-to-gainsight.sql" -v fqdn="'$fqdn'" -v start="'$start'" -v end="'$end'" -v tz="'$tz'" > $usageFile
     sed -i '1d' $usageFile
     outputSize="$(wc -c <"$usageFile")"
     if [ $outputSize -lt $maxUploadSize ]; then
