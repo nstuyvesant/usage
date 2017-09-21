@@ -7,11 +7,11 @@
 uploadToGainsight() {
   response=`curl -s -S -X POST -H "Content-Type: multipart/form-data" -H "loginName: $loginName" -H "appOrgId: $appOrgId" -H "accessKey: $accessKey" --form "file=@$1" --form "jobId=$jobId" https://app.gainsight.com/v1.0/admin/connector/job/bulkimport`
   case $response in
-    *":true"*) printf "\nSuccess: Uploaded $1\n"
+    *":true"*) printf "Success: Uploaded $1\n"
       PGPASSWORD=$dbpass psql -q -h localhost -U postgres -d eventrecords -c "UPDATE cloudslist SET last_sync = '$end' WHERE url = '$fqdn';"
     ;;
-    *"GS_7571"*) printf "\nInfo: No usage data to upload\n"; ;;
-    *) printf "\nError: $1 failed to upload\n"; ;;
+    *"GS_7571"*) printf "Info: No usage data to upload\n"; ;;
+    *) printf "Error: $1 failed to upload\n"; ;;
   esac
   rm -f "$1"
   # To do it right, return true or false from upload() and keep track of transaction ids from Gainsight so we can undo uploads if there's a failure after the first of n chunks
@@ -32,13 +32,14 @@ main() {
 
   cd "$csvDir"
 
+  printf "Run started.\n\n"
   clouds=`PGPASSWORD=$dbpass psql -q -h localhost -U postgres -d eventrecords -c "COPY(SELECT DISTINCT lower(url) AS fqdn, mcm_ip_address AS ip, tz, last_sync FROM cloudslist WHERE validity = 'Y' AND sfname <> 'Perfecto Mobile' AND env_stat = 'production' ORDER BY fqdn) TO STDOUT CSV NULL '' ENCODING 'UTF8'"`
   for currentCloud in $clouds; do
     fqdn=`echo $currentCloud | cut -d, -f1`
     ip=`echo $currentCloud | cut -d, -f2`
     tz=`echo $currentCloud | cut -d, -f3`
     start=`echo $currentCloud | cut -d, -f4`
-    printf "\nCloud: $fqdn, IP: $ip, Time Zone: $tz"
+    printf "Cloud: $fqdn, IP: $ip, Time Zone: $tz\n"
     usageFile="$fqdn.csv"
     PGPASSWORD=$dbpass psql -h $ip -U postgres -d nexperience -t -f "/opt/scripts/usage-to-gainsight.sql" -v fqdn="'$fqdn'" -v start="'$start'" -v end="'$end'" -v tz="'$tz'" > $usageFile
     sed -i '1d' $usageFile
