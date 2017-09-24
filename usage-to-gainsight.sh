@@ -3,18 +3,29 @@
 #  Last modified: 22-August-2017
 #  Version: 1.0.4
 #  Bash shell script that collects usage data from hosted MCMs and uploads to Gainsight
+#  Add this to /var/spool/cron/crontab/root
+#  0 11 * * * /opt/scripts/usage-to-gainsight.sh >> /var/log/usage-to-gainsight.log
 
 uploadToGainsight() {
-  response=`curl -s -S -X POST -H "Content-Type: multipart/form-data" -H "loginName: $loginName" -H "appOrgId: $appOrgId" -H "accessKey: $accessKey" --form "file=@$1" --form "jobId=$jobId" https://app.gainsight.com/v1.0/admin/connector/job/bulkimport`
-  case $response in
-    *":true"*) printf "Success: Uploaded $1\n"
-      PGPASSWORD=$dbpass psql -q -h localhost -U postgres -d eventrecords -c "UPDATE cloudslist SET last_sync = '$end' WHERE url = '$fqdn';"
-    ;;
-    *"GS_7571"*) printf "Info: No usage data to upload\n"; ;;
-    *) printf "Error: $1 failed to upload\n"; ;;
-  esac
-  rm -f "$1"
-  # To do it right, return true or false from upload() and keep track of transaction ids from Gainsight so we can undo uploads if there's a failure after the first of n chunks
+  lines=$((`cat $1 | wc -l` - 1))
+  if [ $lines -gt 0 ]; then
+    response=`curl -s -S -X POST -H "Content-Type: multipart/form-data" -H "loginName: $loginName" -H "appOrgId: $appOrgId" -H "accessKey: $accessKey" --form "file=@$1" --form "jobId=$jobId" https://app.gainsight.com/v1.0/admin/connector/job/bulkimport`
+    case $response in
+      *":true"*) printf ",$lines"
+        PGPASSWORD=$dbpass psql -q -h localhost -U postgres -d eventrecords -c "UPDATE cloudslist SET last_sync = '$end' WHERE url = '$fqdn';"
+      ;;
+      #*"GS_7571"*) printf ",No Usage"; ;;
+      *) printf ",Error $1"
+        failed=true
+      ;;
+    esac
+  else
+    printf ",0"
+  fi
+  if [ "$failed" != true ]; then
+    rm -f "$1"
+  fi
+  # To do: return true or false from upload() and keep track of transaction ids from Gainsight so we can undo uploads if there's a failure after the first of n chunks
   # For now, we'll use the light approach.
 }
 
@@ -29,17 +40,18 @@ main() {
   csvDir="/tmp"
   maxUploadSize=79000000
   end=`date +%Y-%m-%d`
+  startTime=`date`
 
   cd "$csvDir"
 
-  printf "Run started.\n"
+  printf "Start: $startTime.\n"
   clouds=`PGPASSWORD=$dbpass psql -q -h localhost -U postgres -d eventrecords -c "COPY(SELECT DISTINCT lower(url) AS fqdn, mcm_ip_address AS ip, tz, last_sync FROM cloudslist WHERE validity = 'Y' AND sfname <> 'Perfecto Mobile' AND env_stat = 'production' ORDER BY fqdn) TO STDOUT CSV NULL '' ENCODING 'UTF8'"`
   for currentCloud in $clouds; do
     fqdn=`echo $currentCloud | cut -d, -f1`
     ip=`echo $currentCloud | cut -d, -f2`
     tz=`echo $currentCloud | cut -d, -f3`
     start=`echo $currentCloud | cut -d, -f4`
-    printf "\nCloud: $fqdn, IP: $ip, Time Zone: $tz\n"
+    printf "\n$fqdn,$ip,$tz,$start,$end"
     usageFile="$fqdn.csv"
     PGPASSWORD=$dbpyass psql -h $ip -U postgres -d nexperience -t -f "/opt/scripts/usage-to-gainsight.sql" -v fqdn="'$fqdn'" -v start="'$start'" -v end="'$end'" -v tz="'$tz'" > $usageFile
     sed -i '1d' $usageFile
@@ -47,7 +59,7 @@ main() {
     if [ $outputSize -lt $maxUploadSize ]; then
       uploadToGainsight $usageFile
     else
-      avgRowSize=392
+      avgRowSize=725
       rowsPerSegment=$(($maxUploadSize/$avgRowSize))
       split -l $rowsPerSegment "$usageFile" "$fqdn-chunk"
       for c in "$fqdn-chunk"* ; do
@@ -68,7 +80,8 @@ main() {
       rm -f "$fqdn.csv"
     fi
   done
-  printf "\nRun completed.\n"
+  finishTime=`date`
+  printf "\n\nFinished: $finishTime\n"
 }
 
 main
