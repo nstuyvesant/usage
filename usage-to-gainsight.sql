@@ -31,7 +31,7 @@ FROM (
     lower(np_audit_handset_event.username::text) AS username,
     np_audit_handset_event.handset_id AS device_id
   FROM np_audit_handset_event
-  WHERE np_audit_handset_event.event_type::text = 'HS_CLOSE'::text AND np_audit_handset_event.status::text <> 'Error'::text
+  WHERE np_audit_handset_event.duration_in_millis > 0 AND np_audit_handset_event.event_type::text = 'HS_CLOSE'::text AND np_audit_handset_event.status::text <> 'Error'::text
    ) usage_events
     LEFT JOIN (
       SELECT np_user.name AS username, string_agg(np_role.name::text, ','::text ORDER BY (np_role.name::text)) AS user_roles
