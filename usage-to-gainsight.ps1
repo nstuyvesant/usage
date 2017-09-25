@@ -26,7 +26,7 @@ $outputBase = "usage" # base name for files we create
 $lastSyncFile = "$outputDir\$outputBase-last-sync.txt" # file that retains last sync date
 $outputFile = "$outputDir\$outputBase.tmp.csv" # Output file before chunking
 [int]$maxUploadSize = 79000000 # Gainsight can handle up to 80 MB uploads. Use 1000000 for testing chunking.
-[int]$avgRowSize = 392 # Average number of bytes per row of usage data
+[int]$avgRowSize = 725 # Average number of bytes per row of usage data
 [int]$maxRows = $maxUploadSize / $avgRowSize # Max rows per file to stay < 80 MB
 $fqdn = Get-Content -Path $settingsFile | Where-Object { $_ -match 'np.host=' } | %{$_.split('=')[1]} # Read from settings
 $end = Get-Date -UFormat "%Y-%m-%d" # Today's date in PostgreSQL-friendly format
