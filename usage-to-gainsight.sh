@@ -59,15 +59,10 @@ main() {
     if [ $outputSize -lt $maxUploadSize ]; then
       uploadToGainsight $usageFile
     else
-      avgRowSize=725
-      rowsPerSegment=$(($maxUploadSize/$avgRowSize))
-      split -l $rowsPerSegment "$usageFile" "$fqdn-chunk"
-      for c in "$fqdn-chunk"* ; do
-        mv $c ${c}.csv
-      done
+      split --line-bytes=$maxUploadSize "$usageFile" "$fqdn-" -d --additional-suffix=.csv
       currentChunk=1
       head -1 $usageFile > "$fqdn-header.csv"
-      for f in "$fqdn-chunk"* ; do
+      for f in "$fqdn-"* ; do
         if [ $currentChunk -gt 1 ]; then
           cat "$fqdn-header.csv" "$f" > "$fqdn-temp.csv"
           rm "$f"
