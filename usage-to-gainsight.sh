@@ -5,6 +5,8 @@
 #  Bash shell script that collects usage data from hosted MCMs and uploads to Gainsight
 #  Add this to /var/spool/cron/crontab/root
 #  0 11 * * * /opt/scripts/usage-to-gainsight.sh >> /var/log/usage-to-gainsight.log
+# Cygwin path to psql...
+# /cygdrive/c/'Program Files (x86)'/PostgreSQL/9.3/bin/psql
 
 uploadToGainsight() {
   lines=$((`cat $1 | wc -l` - 1))
