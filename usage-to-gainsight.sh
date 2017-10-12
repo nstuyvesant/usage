@@ -1,12 +1,8 @@
 #!/bin/bash
 #  Perfecto Mobile, Inc.
-#  Last modified: 22-August-2017
-#  Version: 1.0.4
+#  Last modified: 11-October-2017
+#  Version: 1.0.5
 #  Bash shell script that collects usage data from hosted MCMs and uploads to Gainsight
-#  Add this to /var/spool/cron/crontab/root
-#  0 11 * * * /opt/scripts/usage-to-gainsight.sh >> /var/log/usage-to-gainsight.log
-# Cygwin path to psql...
-# /cygdrive/c/'Program Files (x86)'/PostgreSQL/9.3/bin/psql
 
 uploadToGainsight() {
   lines=$((`cat $1 | wc -l` - 1))
@@ -27,8 +23,6 @@ uploadToGainsight() {
   if [ "$failed" != true ]; then
     rm -f "$1"
   fi
-  # To do: return true or false from upload() and keep track of transaction ids from Gainsight so we can undo uploads if there's a failure after the first of n chunks
-  # For now, we'll use the light approach.
 }
 
 main() {
