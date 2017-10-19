@@ -10,7 +10,7 @@ uploadToGainsight() {
     response=`curl -s -S -X POST -H "Content-Type: multipart/form-data" -H "loginName: $loginName" -H "appOrgId: $appOrgId" -H "accessKey: $accessKey" --form "file=@$1" --form "jobId=$jobId" https://app.gainsight.com/v1.0/admin/connector/job/bulkimport`
     case $response in
       *":true"*) printf ",$lines"
-        PGPASSWORD=$dbpass psql -q -h localhost -U postgres -d eventrecords -c "UPDATE cloudslist SET last_sync = '$end' WHERE url = '$fqdn';"
+        PGPASSWORD=$dbpass psql -q -h localhost -U postgres -d eventrecords -c "UPDATE cloudslist SET last_sync = '$end' WHERE lower(url) = '$fqdn';"
       ;;
       #*"GS_7571"*) printf ",No Usage"; ;;
       *) printf ",Error $1"
