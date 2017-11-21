@@ -1,7 +1,7 @@
 #!/bin/bash
 #  Perfecto Mobile, Inc.
-#  Last modified: 11-October-2017
-#  Version: 1.0.5
+#  Last modified: 21-November-2017
+#  Version: 1.0.6
 #  Bash shell script that collects usage data from hosted MCMs and uploads to Gainsight
 
 uploadToGainsight() {
@@ -57,17 +57,17 @@ main() {
     else
       split --line-bytes=$maxUploadSize "$usageFile" "$fqdn-" -d --additional-suffix=.csv
       currentChunk=1
-      head -1 $usageFile > "$fqdn-header.csv"
+      head -1 $usageFile > "$fqdn header.csv"
       for f in "$fqdn-"* ; do
         if [ $currentChunk -gt 1 ]; then
-          cat "$fqdn-header.csv" "$f" > "$fqdn-temp.csv"
+          cat "$fqdn header.csv" "$f" > "$fqdn-temp.csv"
           rm "$f"
           mv "$fqdn-temp.csv" "$f"
         fi
         uploadToGainsight $f
         ((currentChunk++))
       done
-      rm -f "$fqdn-header.csv"
+      rm -f "$fqdn header.csv"
       rm -f "$fqdn.csv"
     fi
   done
