@@ -1,11 +1,10 @@
-SET SESSION timezone to :tz;
 COPY (
 SELECT
   :fqdn as fqdn,
   usage_events.usage_type,
-  usage_events.event_time,
-  to_char(usage_events.event_time,'HH24') as hour_of_day,
-  to_char(usage_events.event_time,'FMDay') as day,
+  usage_events.event_time::timestamp(0) with time zone,
+  to_char(usage_events.event_time AT TIME ZONE :tz,'HH24') as hour_of_day,
+  to_char(usage_events.event_time AT TIME ZONE :tz,'FMDay') as day,
   usage_events.duration_hours,
   usage_devices.location,
   usage_events.device_id,
@@ -78,8 +77,8 @@ UNION
   :fqdn as fqdn,
   'Unused'::text as usage_type,
   end_time::timestamp(0) with time zone as event_time,
-  to_char(end_time,'HH24') as hour_of_day,
-  to_char(end_time,'FMDay') as day,
+  to_char(end_time AT TIME ZONE :tz,'HH24') as hour_of_day,
+  to_char(end_time AT TIME ZONE :tz,'FMDay') as day,
   EXTRACT(epoch FROM end_time - start_time)/3600 - (SELECT COALESCE(SUM(duration_in_millis::double precision)/3600000::double precision, 0) as hours_used FROM np_audit_handset_event WHERE event_type = 'HS_CLOSE' AND status <> 'Error' AND handset_id = np_audit_reservation_event.handset_id AND event_time >= np_audit_reservation_event.start_time AND event_time <= np_audit_reservation_event.end_time) as duration_hours,
   'N/A'::text as location,
   handset_id as device_id,
@@ -141,4 +140,4 @@ WHERE
   duration_hours > 0 AND
   event_time >= :start::timestamp with time zone AND
   event_time < :end::timestamp with time zone
-) TO STDOUT CSV HEADER NULL '' ENCODING 'UTF8'
+) TO STDOUT WITH (FORMAT csv, NULL '', ENCODING 'UTF8');
